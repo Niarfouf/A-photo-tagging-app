@@ -4,6 +4,9 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const session = require("express-session");
+const compression = require("compression");
+const helmet = require("helmet");
+const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -11,6 +14,22 @@ dotenv.config();
 const gameRouter = require("./routes/games");
 
 const app = express();
+
+// Set up rate limiter: maximum of twenty requests per minute
+const RateLimit = require("express-rate-limit");
+const limiter = RateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 40,
+});
+// Apply rate limiter to all requests
+app.use(limiter);
+
+// allow CORS request for front end
+const corsOptions = {
+  origin: "http://localhost:5173",
+  credentials: true,
+};
+app.use(cors(corsOptions));
 
 // Set up mongoose connection
 const mongoose = require("mongoose");
@@ -23,7 +42,9 @@ async function main() {
 }
 
 // add middleware
+app.use(helmet());
 app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(compression()); // Compress all routes
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
