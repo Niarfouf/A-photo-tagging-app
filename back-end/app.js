@@ -7,6 +7,7 @@ const session = require("express-session");
 const compression = require("compression");
 const helmet = require("helmet");
 const cors = require("cors");
+const MongoDBStore = require("connect-mongodb-session")(session);
 const dotenv = require("dotenv");
 dotenv.config();
 
@@ -41,9 +42,32 @@ async function main() {
   await mongoose.connect(mongoDB);
 }
 
+const store = new MongoDBStore({
+  uri: process.env.MONGO_URI_SESSION,
+  collection: "session",
+});
+
+const secret = process.env.SESSION_SECRET;
+
 // add middleware
-app.use(helmet());
-app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+
+app.use(
+  session({
+    secret: secret,
+    name: "playerSession",
+    cookie: {
+      maxAge: 1000 * 60 * 60,
+    },
+    store: store,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
+app.use(
+  helmet({
+    crossOriginResourcePolicy: false,
+  })
+);
 app.use(compression()); // Compress all routes
 app.use(logger("dev"));
 app.use(express.json());
