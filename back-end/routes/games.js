@@ -7,8 +7,8 @@ const game_controller = require("../controllers/gameController");
 router.get("/", game_controller.games_info);
 // GET all scores.
 router.get("/scores", game_controller.scores_list);
-// GET one game large image
-router.get("/:gameid/", game_controller.game_large_image);
+// GET one game info
+router.get("/:gameid/", game_controller.game_info);
 // POST to start specific game
 router.post("/:gameid/start", game_controller.game_start);
 // POST coordinate to check for a specific game

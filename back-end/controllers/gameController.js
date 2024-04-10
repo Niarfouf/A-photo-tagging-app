@@ -15,10 +15,15 @@ exports.games_info = asyncHandler(async (req, res, next) => {
     const gameObjects = hiddenObjects.filter((hiddenObject) => {
       return hiddenObject.game == game.id;
     });
+    const newGameObjects = gameObjects.map((object) => {
+      object.image_ref = "http://localhost:3000/" + object.image_ref;
+      return object;
+    });
     resObject[game.game_id] = {
+      game_id: game.game_id,
       name: game.game_name,
-      image: game.small_image_ref,
-      objects: gameObjects,
+      game_image_url: "http://localhost:3000/" + game.small_image_ref,
+      objects: newGameObjects,
     };
   });
   res.json(resObject);
@@ -46,23 +51,36 @@ exports.scores_list = asyncHandler(async (req, res, next) => {
   res.json(gameScores);
 });
 
-// GET one game large image
-exports.game_large_image = [
+// GET one game info
+exports.game_info = [
   // Validate and sanitize params
   param("gameid").trim().escape(),
   asyncHandler(async (req, res, next) => {
-    const gameImageUrl = await Game.findOne(
+    const game = await Game.findOne(
       { game_id: req.params.gameid },
-      "large_image_ref"
+      "_id game_name large_image_ref game_id"
     ).exec();
-    if (gameImageUrl === null) {
+    if (game === null) {
       // No results.
       const err = new Error("Game not found");
       err.status = 404;
-      console.log(err);
       return next(err);
     }
-    res.json({ url: gameImageUrl.large_image_ref });
+    const hiddenObjects = await HiddenObject.find(
+      { game: game.id },
+      "name image_ref object_id"
+    ).exec();
+    const newHiddenObjects = hiddenObjects.map((object) => {
+      object.image_ref = "http://localhost:3000/" + object.image_ref;
+      return object;
+    });
+    const resObject = {
+      game_id: game.game_id,
+      name: game.game_name,
+      game_image_url: "http://localhost:3000/" + game.large_image_ref,
+      objects: newHiddenObjects,
+    };
+    res.json(resObject);
   }),
 ];
 
@@ -98,7 +116,7 @@ exports.coordinate_check = [
       const object = await HiddenObject.findOne({
         object_id: req.params.objectid,
       }).exec();
-      // checking coordinates with small difference
+      // checking coordinates with delta
       if (
         object.x_coord <= req.body.coordX + 10 &&
         object.x_coord >= req.body.coordX - 10 &&
@@ -117,9 +135,17 @@ exports.coordinate_check = [
         req.session.endTime = Date.now();
         const score = req.session.endTime - req.session.startTime;
         req.session.score = score;
-        res.json({ foundCoord: true, message: "You win !", score: score });
+        res.json({
+          x_coord: object.x_coord,
+          y_coord: object.y_coord,
+          foundCoord: true,
+          message: "You win !",
+          score: score,
+        });
       } else {
         res.json({
+          x_coord: object.x_coord,
+          y_coord: object.y_coord,
           foundCoord: true,
           message: "You found one hidden char/object",
         });
@@ -158,16 +184,29 @@ exports.score_create = [
         });
       } else {
         // creating new score from session info
-        const score = req.session.score;
-        const newScore = new Score({
-          player: req.body.player,
-          score: score,
-          game: req.session.gameObjectId,
-        });
-        // Data from form is valid.
-        // save post
-        await newScore.save();
-        res.json({ message: "Score saved", score: newScore });
+        const serverScore = req.session.score;
+        const playerScore = req.body.finalScore;
+        console.log(serverScore);
+        console.log(playerScore);
+
+        const formattedServerScore = Math.round(serverScore / 100) / 10;
+        console.log(formattedServerScore);
+        if (
+          playerScore >= formattedServerScore - 0.2 &&
+          playerScore <= formattedServerScore + 0.2
+        ) {
+          const newScore = new Score({
+            player: req.body.player,
+            score: playerScore,
+            game: req.session.gameObjectId,
+          });
+          // Data from form is valid.
+          // save post
+          await newScore.save();
+          res.json({ message: "Score saved", score: playerScore });
+        } else {
+          res.json({ message: "You tried to cheat", score: "0:00.0" });
+        }
       }
     }
   }),
