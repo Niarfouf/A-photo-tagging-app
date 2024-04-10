@@ -21,7 +21,7 @@ const routes = [
           },
           { path: 'leaderboard', element: <LeaderBoardPage /> },
           { path: 'game', element: <Navigate to="/home" replace /> },
-          { path: 'game/:gameid', element: <GamePage /> },
+          { path: 'game/:gameId', element: <GamePage /> },
           { path: '*', element: <NotFoundPage /> },
         ],
       },
