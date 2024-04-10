@@ -11,9 +11,7 @@ const ErrorPage = () => {
         <i>{error ? error.statusText || error.message : 'Not found'}</i>
       </p>
 
-      <Link to="/home">
-        You can go back to the home page by clicking here, though!
-      </Link>
+      <Link to="/home">Home</Link>
     </div>
   );
 };
