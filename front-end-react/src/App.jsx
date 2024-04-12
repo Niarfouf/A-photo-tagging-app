@@ -2,24 +2,25 @@ import { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import useTimer from './hooks/useTimer';
+import imgUrl from './src/assets/object.png';
 import './App.css';
 const defaultGame = {
   objects: [
     {
       name: 'Unknown',
-      image_ref: './src/assets/object.png',
+      image_ref: imgUrl,
       object_id: 1,
       game: 'Unknown',
     },
     {
       name: 'Unknown',
-      image_ref: './src/assets/object.png',
+      image_ref: imgUrl,
       object_id: 2,
       game: 'Unknown',
     },
     {
       name: 'Unknown',
-      image_ref: './src/assets/object.png',
+      image_ref: imgUrl,
       object_id: 3,
       game: 'Unknown',
     },
