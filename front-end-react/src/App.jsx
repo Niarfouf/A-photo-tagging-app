@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react';
 import { Outlet } from 'react-router-dom';
 import NavBar from './components/NavBar';
 import useTimer from './hooks/useTimer';
-import imgUrl from './src/assets/object.png';
+import imgUrl from './assets/object.png';
 import './App.css';
 const defaultGame = {
   objects: [
