@@ -28,7 +28,7 @@ export default function GamePage() {
   }, [data, setSelectedGame, resetGame]);
 
   const handleStart = () => {
-    fetch(`http://localhost:3000/games/${gameId}/start`, {
+    fetch(`https://gentle-wax-tamarillo.glitch.me/games/${gameId}/start`, {
       method: 'POST',
       mode: 'cors',
       credentials: 'include',

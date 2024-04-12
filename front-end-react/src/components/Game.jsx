@@ -35,7 +35,7 @@ export default function Game({ game, handleFoundObject, finalScore }) {
       const coordY =
         (positionStyleZone.top / myRefImg.current.clientHeight) * 1000;
       fetch(
-        `http://localhost:3000/games/${game.game_id}/check/${event.target.name}`,
+        `https://gentle-wax-tamarillo.glitch.me/games/${game.game_id}/check/${event.target.name}`,
         {
           method: 'POST',
           mode: 'cors',
