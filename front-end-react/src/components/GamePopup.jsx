@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-
+import styles from './GamePopup.module.css';
 export default function GamePopup({
   hidden,
   positionStyleZone,
@@ -10,11 +10,17 @@ export default function GamePopup({
   return (
     <>
       <div
-        className={hidden ? 'zone hidden' : 'zone'}
+        className={
+          hidden ? `${styles['zone']} ${styles['hidden']}` : styles['zone']
+        }
         style={positionStyleZone}
       ></div>
       <div
-        className={hidden ? 'dropdown hidden' : 'dropdown'}
+        className={
+          hidden
+            ? `${styles['dropdown']} ${styles['hidden']}`
+            : styles['dropdown']
+        }
         style={{
           top: positionStyleDropdown.top,
           left: positionStyleDropdown.left,
@@ -24,14 +30,14 @@ export default function GamePopup({
           return (
             <button
               key={object.object_id}
-              className="img-btn"
+              className={styles['img-btn']}
               onClick={handleSelect}
             >
               <img
                 className={
                   game.found_objects.includes(object.object_id)
-                    ? 'img-round found'
-                    : 'img-round'
+                    ? `${styles['img-round']} ${styles['found']}`
+                    : styles['img-round']
                 }
                 name={object.object_id}
                 src={object.image_ref}

@@ -1,18 +1,30 @@
 import LeaderBoard from '../components/LeaderBoard';
 import useFetchData from '../hooks/useFetchData';
+import { Link } from 'react-router-dom';
+import styles from './LeaderBoardPage.module.css';
+
 export default function LeaderBoardPage() {
   const { data, error, loading } = useFetchData('games/scores');
 
-  if (error) return <p>A network error was encountered</p>;
-
+  if (error)
+    return (
+      <div className="error-page">
+        <p>Impossible to load scores...</p>
+        <Link className="error-link" to="/home">
+          Home
+        </Link>
+      </div>
+    );
   if (loading) return <p>Loading...</p>;
 
   return (
-    <main className="leaderboard">
+    <main>
       <h1>Leaderboard</h1>
-      {Object.entries(data).map((game, index) => {
-        return <LeaderBoard key={index} game={game} />;
-      })}
+      <div className={styles['leaderboard-container']}>
+        {Object.entries(data).map((game, index) => {
+          return <LeaderBoard key={index} game={game} />;
+        })}
+      </div>
     </main>
   );
 }

@@ -73,6 +73,7 @@ export default function App() {
   return (
     <>
       <NavBar timerValue={timerValue} selectedGame={selectedGame} />
+
       <Outlet
         context={[
           selectedGame,

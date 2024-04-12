@@ -1,0 +1,55 @@
+.hover-div {
+  position: absolute;
+  background-color: aliceblue;
+  visibility: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgb(82, 82, 82);
+  padding: 0.8rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 2px 2px 5px 3px rgb(61, 61, 61);
+}
+.hover-div > p {
+  font-size: 1rem;
+  font-weight: bold;
+}
+.target {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-direction: column;
+}
+.target-container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.img-round {
+  display: block;
+  width: 55px;
+}
+.target > h3 {
+  margin: 0;
+}
+.start-btn {
+  background-color: transparent;
+  text-decoration: none;
+  color: black;
+  border: 1px solid rgb(51, 51, 51);
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.start-btn:hover {
+  background-color: rgb(51, 51, 51);
+  color: white;
+}
+.visible {
+  visibility: visible;
+}

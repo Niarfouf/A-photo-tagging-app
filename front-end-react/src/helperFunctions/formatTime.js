@@ -6,7 +6,7 @@ const formatTime = (timeInSeconds) => {
     if (seconds < 10) {
       seconds = '0' + seconds;
     }
-    return minutes + ':' + seconds + ' s';
+    return minutes + ' min ' + seconds + ' s';
   } else {
     return seconds + ' s';
   }

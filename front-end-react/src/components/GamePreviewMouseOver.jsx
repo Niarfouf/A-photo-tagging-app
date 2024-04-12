@@ -1,18 +1,25 @@
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import styles from './GamePreviewMouseOver.module.css';
 
 export default function GamePreviewMouseOver({ hover, game, click }) {
   const href = `/game/${game.game_id}`;
   return (
     <>
-      <div className={hover ? 'hover-div visible' : 'hover-div'}>
+      <div
+        className={
+          hover
+            ? `${styles['hover-div']} ${styles['visible']}`
+            : styles['hover-div']
+        }
+      >
         <p>Find all following characters to win : </p>
-        <div className="target-container">
+        <div className={styles['target-container']}>
           {game.objects.map((object) => {
             return (
-              <div key={object.object_id} className="target">
+              <div key={object.object_id} className={styles.target}>
                 <img
-                  className="img-round"
+                  className={styles['img-round']}
                   src={object.image_ref}
                   alt={object.name}
                 ></img>
@@ -22,11 +29,11 @@ export default function GamePreviewMouseOver({ hover, game, click }) {
           })}
         </div>
         {!click ? (
-          <Link className="start-btn" to={href}>
-            Chose game
+          <Link className={styles['start-btn']} to={href}>
+            Choose game
           </Link>
         ) : (
-          <button className="start-btn" onClick={click}>
+          <button className={styles['start-btn']} onClick={click}>
             Start
           </button>
         )}

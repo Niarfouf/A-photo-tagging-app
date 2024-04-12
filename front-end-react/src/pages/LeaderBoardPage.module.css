@@ -1,0 +1,10 @@
+.leaderboard-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 3rem;
+
+  padding: 0 2rem 2rem 2rem;
+  align-items: start;
+  justify-content: space-evenly;
+}

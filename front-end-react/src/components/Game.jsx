@@ -1,8 +1,9 @@
 import GamePopup from './GamePopup';
 import PlayerScoreForm from './PlayerScoreForm';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import calculateCoordinate from '../helperFunctions/calculateCoordinate';
 import PropTypes from 'prop-types';
+import styles from './Game.module.css';
 
 export default function Game({ game, handleFoundObject, finalScore }) {
   const [hidden, setHidden] = useState(true);
@@ -54,20 +55,30 @@ export default function Game({ game, handleFoundObject, finalScore }) {
         .then((response) => {
           if (response.foundCoord) {
             const index = parseInt(event.target.name);
-            const left =
-              (response.x_coord / 1000) * myRefImg.current.clientWidth;
-            const top =
-              (response.y_coord / 1000) * myRefImg.current.clientHeight;
+            const leftFormatted = response.x_coord / 1000;
+            const topFormatted = response.y_coord / 1000;
+            const left = leftFormatted * myRefImg.current.clientWidth;
+            const top = topFormatted * myRefImg.current.clientHeight;
 
-            const newObject = {
-              ...positionStyleObject,
-              [index]: {
-                top,
-                left,
-              },
-            };
+            setPositionStyleObject((positionStyleObject) => {
+              return {
+                normal: {
+                  ...positionStyleObject.normal,
+                  [index]: {
+                    top,
+                    left,
+                  },
+                },
+                formatted: {
+                  ...positionStyleObject.formatted,
+                  [index]: {
+                    topFormatted,
+                    leftFormatted,
+                  },
+                },
+              };
+            });
 
-            setPositionStyleObject(newObject);
             handleFoundObject(index);
           }
 
@@ -79,16 +90,39 @@ export default function Game({ game, handleFoundObject, finalScore }) {
           alert(error);
         });
     },
-    [game, handleFoundObject, positionStyleObject, positionStyleZone],
+    [game, handleFoundObject, positionStyleZone],
   );
+  useEffect(() => {
+    function handleResize() {
+      if (positionStyleObject.formatted) {
+        setPositionStyleObject((positionStyleObject) => {
+          const newPositionStyleObject = {};
+          Object.keys(positionStyleObject.normal).forEach((index) => {
+            newPositionStyleObject[index] = {
+              left:
+                positionStyleObject.formatted[index].leftFormatted *
+                myRefImg.current.clientWidth,
+              top:
+                positionStyleObject.formatted[index].topFormatted *
+                myRefImg.current.clientHeight,
+            };
+          });
+          return { ...positionStyleObject, normal: newPositionStyleObject };
+        });
+      }
+    }
 
+    window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
+  }, [positionStyleObject]);
   return (
     <>
       <main ref={myRefMain}>
         <img
           ref={myRefImg}
           onClick={!finalScore ? handleClick : null}
-          className="game-img"
+          className={styles['game-img']}
           src={game.game_image_url}
         ></img>
 
@@ -97,8 +131,8 @@ export default function Game({ game, handleFoundObject, finalScore }) {
             return (
               <div
                 key={object}
-                className="object"
-                style={positionStyleObject[object]}
+                className={styles.object}
+                style={positionStyleObject.normal[object]}
               ></div>
             );
           })}

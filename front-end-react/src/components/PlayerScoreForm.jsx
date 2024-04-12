@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import formatTime from '../helperFunctions/formatTime';
+import styles from './PlayerScoreForm.module.css';
 export default function PlayerScoreForm({ finalScore, game_id }) {
   const [playerName, setPlayerName] = useState('');
   const [message, setMessage] = useState(null);
@@ -36,26 +37,33 @@ export default function PlayerScoreForm({ finalScore, game_id }) {
   }
   return (
     <>
-      <div className="popup-score">
-        <h2>Score : {formatTime(finalScore)}</h2>
+      <div className={styles['popup-score']}>
+        <h2>You win !</h2>
+        <p>Score : {formatTime(finalScore)}</p>
         {!isScoreSaved && (
           <form onSubmit={handleSubmit}>
-            <label htmlFor="player">Enter your name :</label>
-            <input
-              type="text"
-              id="player"
-              name="player"
-              value={playerName}
-              onChange={(e) => setPlayerName(e.target.value)}
-            ></input>
-            <button type="submit">Save</button>
+            <div className={styles.input}>
+              <label htmlFor="player">Enter your name :</label>
+              <input
+                type="text"
+                id="player"
+                name="player"
+                value={playerName}
+                autoComplete="off"
+                autoFocus
+                onChange={(e) => setPlayerName(e.target.value)}
+              ></input>
+            </div>
+            <button className={styles.btn} type="submit">
+              Save
+            </button>
           </form>
         )}
 
         {message && <p>{message}</p>}
 
         {isScoreSaved && (
-          <Link className="link" to="/home">
+          <Link className={styles.btn} to="/home">
             Home
           </Link>
         )}

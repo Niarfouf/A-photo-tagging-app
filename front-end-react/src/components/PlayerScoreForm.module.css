@@ -1,0 +1,56 @@
+.popup-score {
+  position: absolute;
+  top: 5rem;
+  left: calc(((50 / 100) * 100vw) - 200px);
+  width: 400px;
+  padding: 0 1rem 1rem 1rem;
+  border-radius: 1rem;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid black;
+}
+.popup-score > p {
+  margin: 0 0 1rem 0;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+.input {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+.input > input {
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 1rem;
+  text-align: center;
+  width: 100px;
+  height: 1.5rem;
+}
+.input > input:focus {
+  background-color: azure;
+}
+.btn {
+  background-color: transparent;
+  text-decoration: none;
+  color: black;
+  border: 1px solid rgb(51, 51, 51);
+  border-radius: 0.5rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.btn:hover {
+  background-color: rgb(51, 51, 51);
+  color: white;
+}

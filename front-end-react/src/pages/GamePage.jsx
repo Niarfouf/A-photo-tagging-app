@@ -1,4 +1,4 @@
-import { useParams, useOutletContext } from 'react-router-dom';
+import { useParams, useOutletContext, Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Game from '../components/Game';
 import GamePreview from '../components/GamePreview';
@@ -48,15 +48,26 @@ export default function GamePage() {
 
   if (error)
     return (
-      <p>
-        A network error was encountered or you tried to access a non-existing
-        game.
-      </p>
+      <div className="error-page">
+        <p>
+          A network error was encountered or you tried to access a non-existing
+          game.
+        </p>
+        <Link className="error-link" to="/home">
+          Home
+        </Link>
+      </div>
     );
 
   if (loading) return <p>Loading...</p>;
 
-  if (!isGameStarted) return <GamePreview game={data} click={handleStart} />;
+  if (!isGameStarted)
+    return (
+      <main>
+        <h1>Selected Game :</h1>
+        <GamePreview game={data} click={handleStart} />
+      </main>
+    );
 
   return (
     <>

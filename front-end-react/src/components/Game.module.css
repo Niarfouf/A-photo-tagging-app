@@ -1,0 +1,10 @@
+.object {
+  width: calc(3 * 100vw / 100);
+  height: calc(3 * 100vw / 100);
+  border-radius: 50%;
+  border: 3px solid rgb(0, 255, 0);
+  position: absolute;
+}
+.game-img {
+  width: 100%;
+}

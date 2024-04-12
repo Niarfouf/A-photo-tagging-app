@@ -1,0 +1,35 @@
+.zone {
+  width: calc(3 * 100vw / 100);
+  height: calc(3 * 100vw / 100);
+  border-radius: 50%;
+  border: 3px solid red;
+  position: absolute;
+  top: 0;
+}
+.hidden {
+  visibility: hidden;
+}
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  gap: 5px;
+  padding: 0.2rem;
+  top: 0;
+  background-color: rgba(255, 255, 255, 0.774);
+  border: 1px solid gray;
+  border-radius: 1rem;
+}
+.img-btn {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+}
+.found {
+  opacity: 0.5;
+}
+.img-round {
+  display: block;
+  width: 55px;
+}
