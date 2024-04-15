@@ -69,35 +69,14 @@ async function hiddenObjectCreate(
 async function createHiddenObjects() {
   console.log("Adding hiddenObjects");
   await Promise.all([
-    hiddenObjectCreate(
-      "bee",
-      520,
-      621,
-      "public/images/object1-1.png",
-      1,
-      games[1]
-    ),
-    hiddenObjectCreate(
-      "mouse",
-      529,
-      361,
-      "public/images/object2-1.png",
-      2,
-      games[1]
-    ),
-    hiddenObjectCreate(
-      "owl",
-      79.7,
-      838.5,
-      "public/images/object3-1.png",
-      3,
-      games[1]
-    ),
+    hiddenObjectCreate("bee", 520, 621, "images/object1-1.png", 1, games[1]),
+    hiddenObjectCreate("mouse", 529, 361, "images/object2-1.png", 2, games[1]),
+    hiddenObjectCreate("owl", 79.7, 838.5, "images/object3-1.png", 3, games[1]),
     hiddenObjectCreate(
       "poodle",
       335.2,
       233.9,
-      "public/images/object1-2.png",
+      "images/object1-2.png",
       4,
       games[2]
     ),
@@ -105,7 +84,7 @@ async function createHiddenObjects() {
       "pigeon",
       3.59,
       455.9,
-      "public/images/object2-2.png",
+      "images/object2-2.png",
       5,
       games[2]
     ),
@@ -113,23 +92,16 @@ async function createHiddenObjects() {
       "ghost",
       586.8,
       696.6,
-      "public/images/object3-2.png",
+      "images/object3-2.png",
       6,
       games[2]
     ),
-    hiddenObjectCreate(
-      "monkey",
-      937,
-      792,
-      "public/images/object1-3.png",
-      7,
-      games[3]
-    ),
+    hiddenObjectCreate("monkey", 937, 792, "images/object1-3.png", 7, games[3]),
     hiddenObjectCreate(
       "rat",
       324.5,
       766.7,
-      "public/images/object2-3.png",
+      "images/object2-3.png",
       8,
       games[3]
     ),
@@ -137,7 +109,7 @@ async function createHiddenObjects() {
       "bulldog",
       290.5,
       190.2,
-      "public/images/object3-3.png",
+      "images/object3-3.png",
       9,
       games[3]
     ),
@@ -150,20 +122,20 @@ async function createGames() {
     gameCreate(
       1,
       "Hotel in the forest",
-      "public/images/game-1-small.jpg",
-      "public/images/game-1.jpg"
+      "images/game-1-small.jpg",
+      "images/game-1.jpg"
     ),
     gameCreate(
       2,
       "London and netflix",
-      "public/images/game-2-small.jpg",
-      "public/images/game-2.jpg"
+      "images/game-2-small.jpg",
+      "images/game-2.jpg"
     ),
     gameCreate(
       3,
       "Dragon and friends",
-      "public/images/game-3-small.jpg",
-      "public/images/game-3.jpg"
+      "images/game-3-small.jpg",
+      "images/game-3.jpg"
     ),
   ]);
 }
