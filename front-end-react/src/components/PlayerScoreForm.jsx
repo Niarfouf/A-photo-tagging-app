@@ -10,7 +10,7 @@ export default function PlayerScoreForm({ finalScore, game_id }) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    fetch(`https://gentle-wax-tamarillo.glitch.me/games/${game_id}/score`, {
+    fetch(`http://localhost:3000/games/${game_id}/score`, {
       method: 'POST',
       mode: 'cors',
       headers: {

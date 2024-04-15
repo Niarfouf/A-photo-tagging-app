@@ -6,7 +6,7 @@ const useFetchData = (url) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://gentle-wax-tamarillo.glitch.me/' + url, {
+    fetch('http://localhost:3000/' + url, {
       method: 'GET',
       mode: 'cors',
     })

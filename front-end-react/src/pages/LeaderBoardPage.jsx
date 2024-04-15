@@ -1,4 +1,4 @@
-import LeaderBoard from '../components/LeaderBoard';
+import GameScore from '../components/GameScore';
 import useFetchData from '../hooks/useFetchData';
 import { Link } from 'react-router-dom';
 import styles from './LeaderBoardPage.module.css';
@@ -15,14 +15,14 @@ export default function LeaderBoardPage() {
         </Link>
       </div>
     );
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <p className="loading">Loading...</p>;
 
   return (
     <main>
       <h1>Leaderboard</h1>
       <div className={styles['leaderboard-container']}>
         {Object.entries(data).map((game, index) => {
-          return <LeaderBoard key={index} game={game} />;
+          return <GameScore key={index} game={game} />;
         })}
       </div>
     </main>

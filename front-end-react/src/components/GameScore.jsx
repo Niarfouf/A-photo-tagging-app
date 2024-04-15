@@ -1,8 +1,8 @@
 import formatTime from '../helperFunctions/formatTime';
 import PropTypes from 'prop-types';
-import styles from './LeaderBoard.module.css';
+import styles from './GameScore.module.css';
 
-export default function LeaderBoard({ game }) {
+export default function GameScore({ game }) {
   return (
     <>
       <div className={styles['game-score-container']}>
@@ -11,6 +11,7 @@ export default function LeaderBoard({ game }) {
           <table>
             <thead>
               <tr>
+                <th>Rank</th>
                 <th>Name</th>
                 <th>Score</th>
               </tr>
@@ -19,6 +20,7 @@ export default function LeaderBoard({ game }) {
               {game[1].map((score, i) => {
                 return (
                   <tr key={i}>
+                    <td>{i + 1}</td>
                     <td>{score[0]}</td>
                     <td>{formatTime(score[1])}</td>
                   </tr>
@@ -31,6 +33,6 @@ export default function LeaderBoard({ game }) {
     </>
   );
 }
-LeaderBoard.propTypes = {
+GameScore.propTypes = {
   game: PropTypes.array.isRequired,
 };

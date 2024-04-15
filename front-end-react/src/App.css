@@ -60,3 +60,7 @@ h1 {
 button {
   cursor: pointer;
 }
+
+.loading {
+  text-align: center;
+}
