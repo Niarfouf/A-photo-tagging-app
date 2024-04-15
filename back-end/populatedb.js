@@ -29,8 +29,7 @@ async function main() {
   mongoose.connection.close();
 }
 
-// We pass the index to the ...Create functions so that, for example,
-// genre[0] will always be the Fantasy genre, regardless of the order
+// We pass the index to the ...Create functions so that we preserve order regardless of the order
 // in which the elements of promise.all's argument complete.
 async function gameCreate(index, game_name, small_image_ref, large_image_ref) {
   const game = new Game({
