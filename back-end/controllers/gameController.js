@@ -186,20 +186,25 @@ exports.score_create = [
         // creating new score from session info
         const serverScore = req.session.score;
         const playerScore = req.body.finalScore;
-        console.log(serverScore);
-        console.log(playerScore);
 
         const formattedServerScore = Math.round(serverScore / 100) / 10;
-        console.log(formattedServerScore);
+
         if (
-          playerScore >= formattedServerScore - 0.2 &&
-          playerScore <= formattedServerScore + 0.2
+          playerScore >= formattedServerScore - 0.5 &&
+          playerScore <= formattedServerScore + 0.5
         ) {
-          const newScore = new Score({
-            player: req.body.player,
-            score: playerScore,
-            game: req.session.gameObjectId,
-          });
+          let newScore;
+          req.body.player.length > 0
+            ? (newScore = new Score({
+                player: req.body.player,
+                score: playerScore,
+                game: req.session.gameObjectId,
+              }))
+            : (newScore = new Score({
+                score: playerScore,
+                game: req.session.gameObjectId,
+              }));
+
           // Data from form is valid.
           // save post
           await newScore.save();
