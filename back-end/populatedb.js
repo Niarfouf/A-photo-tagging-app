@@ -29,14 +29,12 @@ async function main() {
   mongoose.connection.close();
 }
 
-// We pass the index to the ...Create functions so that we preserve order regardless of the order
-// in which the elements of promise.all's argument complete.
-async function gameCreate(index, game_name, small_image_ref, large_image_ref) {
+async function gameCreate(game_id, game_name, small_image_ref, large_image_ref) {
   const game = new Game({
     game_name,
     small_image_ref,
     large_image_ref,
-    game_id: index,
+    game_id,
   });
   await game.save();
   games[index] = game;
